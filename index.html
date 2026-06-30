@@ -7,25 +7,25 @@
   <meta name="description" content="대한민국의 다채로운 한식을 소개합니다 · Discover the rich diversity of Korean cuisine">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ── Design Tokens ── */
     :root {
-      --bg:           #081B42;
-      --bg-surface:   #0C2456;
-      --bg-card:      rgba(255,255,255,0.07);
-      --gold:         #3DC8C4;
-      --gold-light:   #68DDD8;
-      --gold-muted:   rgba(61,200,196,0.13);
-      --red:          #D9805A;
-      --red-bright:   #EBA070;
-      --cream:        #E8F3FF;
-      --cream-dim:    #7BACD6;
-      --border:       rgba(255,255,255,0.13);
-      --border-hover: rgba(61,200,196,0.52);
+      --bg:           #09090D;
+      --bg-surface:   #111118;
+      --bg-card:      rgba(255,255,255,0.042);
+      --gold:         #FF5A1E;
+      --gold-light:   #FF7D48;
+      --gold-muted:   rgba(255,90,30,0.10);
+      --red:          #E81A3C;
+      --red-bright:   #FF3358;
+      --cream:        #F4F4FA;
+      --cream-dim:    #7878A0;
+      --border:       rgba(255,255,255,0.07);
+      --border-hover: rgba(255,90,30,0.50);
 
-      --font-display-kr: 'Noto Serif KR', serif;
-      --font-display-en: 'Playfair Display', serif;
+      --font-display-kr: 'Noto Sans KR', sans-serif;
+      --font-display-en: 'Bebas Neue', 'Inter', sans-serif;
       --font-body-kr:    'Noto Sans KR', sans-serif;
       --font-body-en:    'Inter', sans-serif;
 
@@ -37,8 +37,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: linear-gradient(170deg, #060F2A 0%, #0A1E50 40%, #071540 100%);
-      background-attachment: fixed;
+      background: #09090D;
       color: var(--cream);
       font-family: var(--font-body-kr);
       font-size: 16px;
@@ -67,12 +66,9 @@
     /* ── Decorative pattern SVG ── */
     .dancheong-border {
       width: 100%;
-      height: 5px;
-      background: linear-gradient(
-        90deg,
-        var(--red), var(--gold), #1A6AA8, var(--gold), var(--red)
-      );
-      opacity: 0.7;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 25%, var(--red) 75%, transparent 100%);
+      opacity: 0.6;
     }
 
     /* ════════════════════════════
@@ -87,10 +83,11 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 72px;
-      background: rgba(8, 27, 66, 0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.45);
+      background: rgba(9, 9, 13, 0.90);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 1px 0 rgba(255,90,30,0.15), 0 4px 24px rgba(0,0,0,0.6);
       transition: background 0.3s var(--ease-out);
     }
     .nav-logo {
@@ -205,41 +202,43 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        160deg,
-        rgba(5, 12, 38, 0.68) 0%,
-        rgba(8, 22, 60, 0.46) 45%,
-        rgba(5, 12, 38, 0.74) 100%
+        175deg,
+        rgba(5, 3, 8, 0.75) 0%,
+        rgba(10, 5, 5, 0.50) 50%,
+        rgba(5, 3, 8, 0.80) 100%
       );
       z-index: 1;
     }
-    /* Anime light beam overlay */
     .hero-video-overlay::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 30% 60% at 55% 20%, rgba(61,200,196,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 20% 40% at 70% 10%, rgba(104,221,216,0.07) 0%, transparent 50%);
+        radial-gradient(ellipse 50% 40% at 15% 80%, rgba(255,90,30,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 30% 50% at 90% 20%, rgba(232,26,60,0.08) 0%, transparent 50%);
     }
 
-    /* Hero text colors — light sky on dark video overlay */
-    .hero .hero-eyebrow { color: var(--gold-light); }
+    /* Hero text — white on dark cinematic overlay */
+    .hero .hero-eyebrow {
+      color: var(--gold);
+      letter-spacing: 0.30em;
+    }
     .hero .hero-title,
-    .hero .hero-title-en { color: #ECF5FF; }
+    .hero .hero-title-en { color: #FFFFFF; }
     .hero .hero-title .gold,
-    .hero .hero-title-en .gold { color: var(--gold-light); }
+    .hero .hero-title-en .gold { color: var(--gold); }
     .hero .hero-sub,
-    .hero .hero-sub-en { color: rgba(220, 238, 255, 0.80); }
+    .hero .hero-sub-en { color: rgba(244, 244, 250, 0.72); }
     .hero .btn-outline {
-      color: #ECF5FF;
-      border-color: rgba(220, 238, 255, 0.38);
+      color: #FFFFFF;
+      border-color: rgba(255,255,255,0.30);
     }
     .hero .btn-outline:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-light);
+      color: var(--gold);
+      border-color: var(--gold);
     }
-    .hero .scroll-line { background: linear-gradient(var(--gold-light), transparent); }
-    .hero .hero-scroll span { color: rgba(220,238,255,0.55); }
+    .hero .scroll-line { background: linear-gradient(var(--gold), transparent); }
+    .hero .hero-scroll span { color: rgba(244,244,250,0.45); }
     .hero-content {
       position: relative;
       z-index: 2;
@@ -264,23 +263,23 @@
     }
     .hero-title {
       font-family: var(--font-display-kr);
-      font-size: clamp(44px, 5.2vw, 76px);
+      font-size: clamp(48px, 5.8vw, 84px);
       font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
       margin-bottom: 22px;
-      color: var(--cream);
+      color: #FFFFFF;
     }
     .hero-title .gold { color: var(--gold); }
     .hero-title-en {
-      font-family: var(--font-display-en);
-      font-size: clamp(36px, 4.5vw, 62px);
-      font-weight: 700;
-      font-style: italic;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 7vw, 104px);
+      font-weight: 400;
+      font-style: normal;
+      line-height: 0.95;
+      letter-spacing: 0.03em;
       margin-bottom: 22px;
-      color: var(--cream);
+      color: #FFFFFF;
     }
     .hero-title-en .gold { color: var(--gold); }
     .hero-sub {
@@ -299,30 +298,42 @@
       gap: 16px;
     }
     .btn-primary {
-      padding: 12px 28px;
-      background: var(--gold);
+      padding: 13px 30px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%);
       color: #FFFFFF;
-      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
       border: none;
-      border-radius: 3px;
+      border-radius: 2px;
       cursor: pointer;
       transition: all 0.25s var(--ease-out);
+      position: relative;
+      overflow: hidden;
     }
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.2s;
     }
+    .btn-primary:hover::after { background: rgba(255,255,255,0.10); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,90,30,0.35); }
+
     .btn-outline {
-      padding: 12px 28px;
+      padding: 13px 30px;
       background: transparent;
       color: var(--cream);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      border: 1px solid rgba(255,255,255,0.28);
-      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
       cursor: pointer;
       transition: all 0.25s var(--ease-out);
     }
@@ -383,16 +394,17 @@
     }
     .section-title {
       font-family: var(--font-display-kr);
-      font-size: clamp(24px, 3vw, 38px);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
+      font-size: clamp(26px, 3.2vw, 42px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
     .section-title-en {
-      font-family: var(--font-display-en);
-      font-size: clamp(20px, 2.6vw, 32px);
-      font-weight: 700;
-      font-style: italic;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 4vw, 54px);
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: 0.04em;
     }
     .section-see-all {
       font-family: var(--font-body-en);
@@ -419,17 +431,18 @@
     .short-card {
       position: relative;
       aspect-ratio: 9/16;
-      border-radius: 14px;
+      border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
       background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.14);
-      transition: transform 0.35s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
     .short-card:hover {
-      transform: scale(1.02) translateY(-5px);
-      border-color: var(--border-hover);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 18px rgba(61,200,196,0.15);
+      border-color: rgba(255,90,30,0.40);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 20px rgba(255,90,30,0.12);
     }
     .short-bg {
       position: absolute;
@@ -571,10 +584,10 @@
     }
 
     /* Food bg colors */
-    .food-1 { background: linear-gradient(160deg, #7A1818 0%, #4A0E0E 100%); }
-    .food-2 { background: linear-gradient(160deg, #145A30 0%, #0A3820 100%); }
-    .food-3 { background: linear-gradient(160deg, #7A4A12 0%, #4A2C0A 100%); }
-    .food-4 { background: linear-gradient(160deg, #0E3880 0%, #091E50 100%); }
+    .food-1 { background: linear-gradient(140deg, #3A0808 0%, #1A0404 100%); }
+    .food-2 { background: linear-gradient(140deg, #0A2A14 0%, #061510 100%); }
+    .food-3 { background: linear-gradient(140deg, #3A2008 0%, #1E1004 100%); }
+    .food-4 { background: linear-gradient(140deg, #0A1830 0%, #040C1C 100%); }
 
     /* ════════════════════════════
        CATEGORIES
@@ -626,19 +639,18 @@
       margin-top: 32px;
     }
     .food-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.3s var(--ease-out);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
     .food-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(61,200,196,0.12);
+      border-color: rgba(255,90,30,0.40);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 24px rgba(255,90,30,0.10);
     }
     .food-card.featured {
       grid-column: span 2;
@@ -696,13 +708,13 @@
       font-family: var(--font-body-en);
     }
 
-    /* food thumb gradient backgrounds — vivid, cinematic */
-    .t1 { background: radial-gradient(ellipse at 40% 35%, #C83030 0%, #6A1010 100%); }
-    .t2 { background: radial-gradient(ellipse at 40% 35%, #1AA868 0%, #0A5030 100%); }
-    .t3 { background: radial-gradient(ellipse at 40% 35%, #C87820 0%, #6A3C08 100%); }
-    .t4 { background: radial-gradient(ellipse at 40% 35%, #2870C8 0%, #0E3878 100%); }
-    .t5 { background: radial-gradient(ellipse at 40% 35%, #C82828 0%, #7A1010 100%); }
-    .t6 { background: radial-gradient(ellipse at 40% 35%, #C89A18 0%, #6A5208 100%); }
+    /* food thumb gradient backgrounds */
+    .t1 { background: radial-gradient(ellipse at 35% 40%, #FF3A3A 0%, #5A0808 100%); }
+    .t2 { background: radial-gradient(ellipse at 35% 40%, #20D870 0%, #064020 100%); }
+    .t3 { background: radial-gradient(ellipse at 35% 40%, #FF8820 0%, #5A2C04 100%); }
+    .t4 { background: radial-gradient(ellipse at 35% 40%, #3890F0 0%, #082860 100%); }
+    .t5 { background: radial-gradient(ellipse at 35% 40%, #FF2020 0%, #600404 100%); }
+    .t6 { background: radial-gradient(ellipse at 35% 40%, #FFB820 0%, #604004 100%); }
 
     /* ════════════════════════════
        STORY SECTION
@@ -732,7 +744,7 @@
     .story-frame-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 40% 35%, #1A4A90 0%, #081838 100%);
+      background: radial-gradient(ellipse at 40% 35%, #2A1008 0%, #080406 100%);
     }
     .story-frame-emoji {
       position: relative;
@@ -855,21 +867,20 @@
       margin-top: 28px;
     }
     .region-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
       padding: 18px 14px;
       cursor: pointer;
-      transition: all 0.3s var(--ease-out);
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
       text-align: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
+      will-change: transform;
     }
     .region-card:hover {
-      border-color: var(--border-hover);
-      background: var(--gold-muted);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 14px rgba(61,200,196,0.12);
+      border-color: rgba(255,90,30,0.40);
+      background: rgba(255,90,30,0.06);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6), 0 0 16px rgba(255,90,30,0.10);
     }
     .region-icon {
       font-size: 36px;
@@ -909,8 +920,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,200,196,0.09) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 50% at 80% 20%, rgba(217,128,90,0.07) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,90,30,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 85% 15%, rgba(232,26,60,0.05) 0%, transparent 60%);
     }
     .newsletter-content { position: relative; z-index: 1; }
     .newsletter-section .section-title { margin: 12px auto 16px; }
@@ -1092,8 +1103,121 @@
     @media (max-width: 480px) {
       .shorts-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .newsletter-form { flex-direction: column; }
-      .newsletter-input { border-right: 1px solid var(--border); border-radius: 3px; }
-      .newsletter-form .btn-primary { border-radius: 3px; }
+      .newsletter-input { border-right: 1px solid var(--border); border-radius: 2px; }
+      .newsletter-form .btn-primary { border-radius: 2px; }
+    }
+
+    /* ════════════════════════════
+       3D + URBAN EXTRAS
+    ════════════════════════════ */
+
+    /* 3D shimmer highlight on tilt cards */
+    .tilt-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tilt-card:hover::before { opacity: 1; }
+
+    /* Section label modernized */
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Gradient text accent */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Urban badge style */
+    .short-live-badge {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%) !important;
+      border-radius: 2px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    /* Nav CTA urban */
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%) !important;
+      border-radius: 2px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    /* Marquee urban strip */
+    .marquee-section {
+      background: linear-gradient(90deg, #1A0804 0%, #110208 50%, #1A0804 100%) !important;
+      border-top: 1px solid rgba(255,90,30,0.15);
+      border-bottom: 1px solid rgba(255,90,30,0.15);
+    }
+    .marquee-item {
+      color: var(--cream) !important;
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      font-size: 11px !important;
+    }
+    .marquee-dot { background: var(--gold) !important; }
+
+    /* Story badge urban */
+    .story-badge { border-radius: 4px !important; }
+    .story-badge-num { color: var(--gold) !important; }
+
+    /* Stat num gradient */
+    .stat-num {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Section dividers */
+    .food-grid-section,
+    .regions-section { border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+    /* Cat pills urban */
+    .cat-pill {
+      border-radius: 2px !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* Section see-all refined */
+    .section-see-all {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.18em !important;
     }
   </style>
 </head>
@@ -1130,11 +1254,11 @@
     </video>
     <div class="hero-video-overlay"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Korea · 대한민국 · Traditional Cuisine</p>
-      <h1 class="hero-title ko">천년의 맛,<br><span class="gold">한식의</span> 품격</h1>
-      <h1 class="hero-title-en en">A <span class="gold">Thousand Years</span><br>of Korean Taste</h1>
-      <p class="hero-sub ko">사계절의 자연이 만든 다채로운 한식의 세계로 초대합니다.<br>전통의 깊이와 현대의 감각이 어우러진 대한민국의 맛.</p>
-      <p class="hero-sub hero-sub-en en">We invite you to explore the vibrant world of Korean cuisine — where centuries of tradition meet contemporary sensibility.</p>
+      <p class="hero-eyebrow">Seoul · K-Food · Now Trending</p>
+      <h1 class="hero-title ko">지금 이 순간,<br><span class="gold">한식이</span> 세계를 삼킨다</h1>
+      <h1 class="hero-title-en en"><span class="gold">Korean Food</span><br>Takes The World</h1>
+      <p class="hero-sub ko">트렌디한 한식의 세계로 입장하세요. 전통의 깊이, 지금의 감각.</p>
+      <p class="hero-sub hero-sub-en en">Step into the world of Korean cuisine — where bold tradition meets street-level cool.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('shorts').scrollIntoView({behavior:'smooth'})">
           <span class="ko">숏츠 탐색하기</span>

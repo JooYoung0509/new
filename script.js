@@ -44,11 +44,43 @@ setInterval(animateProgress, 100);
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.navbar');
   if (window.scrollY > 60) {
-    nav.style.background = 'rgba(5, 14, 40, 0.97)';
+    nav.style.background = 'rgba(6, 6, 10, 0.97)';
   } else {
-    nav.style.background = 'rgba(8, 27, 66, 0.88)';
+    nav.style.background = 'rgba(9, 9, 13, 0.90)';
   }
 }, { passive: true });
+
+// ── 3D Mouse Tilt on cards ──
+function initTilt() {
+  document.querySelectorAll('.food-card, .short-card, .region-card').forEach(card => {
+    card.classList.add('tilt-card');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const maxTilt = card.classList.contains('short-card') ? 10 : 12;
+      const rx = -dy * maxTilt;
+      const ry = dx * maxTilt;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(14px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+      setTimeout(() => { card.style.transform = ''; }, 300);
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.08s ease-out, border-color 0.3s, box-shadow 0.3s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.5s var(--ease-out), border-color 0.3s, box-shadow 0.3s';
+    });
+  });
+}
+initTilt();
 
 // ── Hero video: unmute on click ──
 const heroVideo = document.querySelector('.hero-video');
