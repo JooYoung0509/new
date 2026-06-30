@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한식의 맛 · The Art of Hansik</title>
+  <meta name="description" content="대한민국의 다채로운 한식을 소개합니다 · Discover the rich diversity of Korean cuisine">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --bg:           #FAF7F2;
+      --bg-surface:   #F2EDE3;
+      --bg-card:      #FFFFFF;
+      --gold:         #B8832E;
+      --gold-light:   #D4973C;
+      --gold-muted:   rgba(184,131,46,0.12);
+      --red:          #8B1A1A;
+      --red-bright:   #B22222;
+      --cream:        #1A1208;
+      --cream-dim:    #7A6050;
+      --border:       rgba(26,18,8,0.10);
+      --border-hover: rgba(184,131,46,0.45);
+
+      --font-display-kr: 'Noto Serif KR', serif;
+      --font-display-en: 'Playfair Display', serif;
+      --font-body-kr:    'Noto Sans KR', sans-serif;
+      --font-body-en:    'Inter', sans-serif;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in:  cubic-bezier(0.64, 0, 0.78, 0);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--font-body-kr);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Language toggle logic ── */
+    .ko { display: block; }
+    .en { display: none; }
+    span.ko { display: inline; }
+    span.en { display: none; }
+
+    body.lang-en .ko { display: none !important; }
+    body.lang-en .en { display: block !important; }
+    body.lang-en span.ko { display: none !important; }
+    body.lang-en span.en { display: inline !important; }
+
+    body.lang-ko .en { display: none !important; }
+    body.lang-ko .ko { display: block !important; }
+    body.lang-ko span.en { display: none !important; }
+    body.lang-ko span.ko { display: inline !important; }
+
+    /* ── Decorative pattern SVG ── */
+    .dancheong-border {
+      width: 100%;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--red) 0px, var(--red) 8px,
+        var(--gold) 8px, var(--gold) 16px,
+        #2C4A2E 16px, #2C4A2E 24px,
+        var(--gold) 24px, var(--gold) 32px
+      );
+      opacity: 0.6;
+    }
+
+    /* ════════════════════════════
+       NAVBAR
+    ════════════════════════════ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(26,18,8,0.08);
+      transition: background 0.3s var(--ease-out);
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .nav-logo .logo-kr {
+      font-family: var(--font-display-kr);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+    .nav-logo .logo-en {
+      font-family: var(--font-display-en);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--cream-dim);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--cream-dim);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 6px 14px;
+      font-size: 11px;
+      font-family: var(--font-body-en);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--cream-dim);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+    }
+    .nav-cta {
+      padding: 8px 22px;
+      background: var(--red);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .nav-cta:hover { background: var(--red-bright); }
+
+    /* ════════════════════════════
+       HERO
+    ════════════════════════════ */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* ── Hero Video Background ── */
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(12, 6, 2, 0.62) 0%,
+        rgba(18, 10, 4, 0.48) 45%,
+        rgba(12, 6, 2, 0.70) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Hero text colors override — white on dark video */
+    .hero .hero-eyebrow { color: var(--gold-light); }
+    .hero .hero-title,
+    .hero .hero-title-en { color: #F5EFE5; }
+    .hero .hero-title .gold,
+    .hero .hero-title-en .gold { color: var(--gold-light); }
+    .hero .hero-sub,
+    .hero .hero-sub-en { color: rgba(245, 239, 229, 0.82); }
+    .hero .btn-outline {
+      color: #F5EFE5;
+      border-color: rgba(245, 239, 229, 0.45);
+    }
+    .hero .btn-outline:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+    .hero .scroll-line { background: linear-gradient(var(--gold-light), transparent); }
+    .hero .hero-scroll span { color: rgba(245,239,229,0.6); }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body-en);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-title {
+      font-family: var(--font-display-kr);
+      font-size: clamp(44px, 5.2vw, 76px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+      color: var(--cream);
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-title-en {
+      font-family: var(--font-display-en);
+      font-size: clamp(36px, 4.5vw, 62px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+      color: var(--cream);
+    }
+    .hero-title-en .gold { color: var(--gold); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--cream-dim);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-sub-en {
+      font-family: var(--font-body-en);
+      font-size: 16px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .btn-primary {
+      padding: 12px 28px;
+      background: var(--gold);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease-out);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--cream);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(26,18,8,0.3);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease-out);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .hero-scroll {
+      position: absolute;
+      right: 48px;
+      bottom: 64px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-scroll span {
+      font-family: var(--font-body-en);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--cream-dim);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ════════════════════════════
+       SHORTS SECTION
+    ════════════════════════════ */
+    .shorts-section {
+      padding: 52px 40px;
+      position: relative;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .section-label {
+      font-family: var(--font-body-en);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display-kr);
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .section-title-en {
+      font-family: var(--font-display-en);
+      font-size: clamp(20px, 2.6vw, 32px);
+      font-weight: 700;
+      font-style: italic;
+    }
+    .section-see-all {
+      font-family: var(--font-body-en);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--gold);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .section-see-all:hover { opacity: 0.7; }
+
+    .shorts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .short-card {
+      position: relative;
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: transform 0.35s var(--ease-out), border-color 0.3s;
+      group: true;
+    }
+    .short-card:hover {
+      transform: scale(1.02) translateY(-4px);
+      border-color: var(--border-hover);
+    }
+    .short-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .short-card:hover .short-bg { transform: scale(1.08); }
+    .short-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0) 30%,
+        rgba(12,8,4,0.7) 65%,
+        rgba(12,8,4,0.95) 100%
+      );
+    }
+    .short-top {
+      position: absolute;
+      top: 14px; left: 14px; right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .short-live-badge {
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-body-en);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .short-views {
+      font-family: var(--font-body-en);
+      font-size: 10px;
+      color: rgba(245,240,232,0.7);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .short-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-btn {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(201,150,60,0.25);
+      border: 2px solid rgba(201,150,60,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.25s var(--ease-out);
+    }
+    .short-card:hover .play-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .play-btn svg {
+      width: 20px; height: 20px;
+      fill: var(--gold);
+      margin-left: 3px;
+    }
+    .short-actions {
+      position: absolute;
+      right: 12px;
+      bottom: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .short-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .short-action-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(245,240,232,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .short-action-count {
+      font-family: var(--font-body-en);
+      font-size: 9px;
+      color: rgba(245,240,232,0.7);
+    }
+    .short-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px 14px;
+    }
+    .short-category {
+      font-family: var(--font-body-en);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .short-title-kr {
+      font-family: var(--font-display-kr);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .short-title-en {
+      font-family: var(--font-display-en);
+      font-size: 13px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream-dim);
+    }
+    .short-progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 0 2px 0 0;
+      transition: width 0.1s linear;
+    }
+
+    /* Food bg colors */
+    .food-1 { background: linear-gradient(160deg, #B03030 0%, #7A1A1A 100%); }
+    .food-2 { background: linear-gradient(160deg, #2A7A42 0%, #1A5A2E 100%); }
+    .food-3 { background: linear-gradient(160deg, #B8742A 0%, #8A5018 100%); }
+    .food-4 { background: linear-gradient(160deg, #2A5A9A 0%, #1A3E72 100%); }
+
+    /* ════════════════════════════
+       CATEGORIES
+    ════════════════════════════ */
+    .categories-section {
+      padding: 0 40px 52px;
+    }
+    .cat-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .cat-scroll::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      flex-shrink: 0;
+      padding: 10px 24px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cream-dim);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .cat-pill:hover,
+    .cat-pill.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-muted);
+    }
+
+    /* ════════════════════════════
+       FOOD GRID
+    ════════════════════════════ */
+    .food-grid-section {
+      padding: 52px 40px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .food-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+    }
+    .food-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(26,18,8,0.12);
+    }
+    .food-card.featured {
+      grid-column: span 2;
+    }
+    .food-thumb {
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .food-card.featured .food-thumb {
+      aspect-ratio: 16/9;
+      font-size: 96px;
+    }
+    .food-thumb-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .food-card:hover .food-thumb-bg { transform: scale(1.06); }
+    .food-info {
+      padding: 20px;
+    }
+    .food-tag {
+      font-family: var(--font-body-en);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .food-name-kr {
+      font-family: var(--font-display-kr);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .food-name-en {
+      font-family: var(--font-display-en);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--cream-dim);
+      margin-bottom: 10px;
+    }
+    .food-desc {
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.65;
+    }
+    .food-desc-en {
+      font-family: var(--font-body-en);
+    }
+
+    /* food thumb gradient backgrounds */
+    .t1 { background: radial-gradient(ellipse at center, #D94040 0%, #9A2020 100%); }
+    .t2 { background: radial-gradient(ellipse at center, #40B070 0%, #257A45 100%); }
+    .t3 { background: radial-gradient(ellipse at center, #D48030 0%, #9A5A18 100%); }
+    .t4 { background: radial-gradient(ellipse at center, #4080C8 0%, #255898 100%); }
+    .t5 { background: radial-gradient(ellipse at center, #C83838 0%, #8B1A1A 100%); }
+    .t6 { background: radial-gradient(ellipse at center, #D4A020 0%, #9A7010 100%); }
+
+    /* ════════════════════════════
+       STORY SECTION
+    ════════════════════════════ */
+    .story-section {
+      padding: 64px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: center;
+    }
+    .story-visual {
+      position: relative;
+    }
+    .story-frame {
+      aspect-ratio: 4/5;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    .story-frame-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 40% 40%, #F0E4CC 0%, #E8D8B8 100%);
+    }
+    .story-frame-emoji {
+      position: relative;
+      z-index: 1;
+    }
+    .story-corner {
+      position: absolute;
+      width: 32px; height: 32px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.5;
+    }
+    .story-corner.tl { top: -8px; left: -8px; border-width: 2px 0 0 2px; }
+    .story-corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+    .story-badge {
+      position: absolute;
+      bottom: 24px;
+      right: -24px;
+      background: var(--red);
+      padding: 16px 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .story-badge-num {
+      font-family: var(--font-display-en);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .story-badge-text {
+      font-size: 11px;
+      color: var(--cream);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+    .story-content .section-label { margin-bottom: 12px; }
+    .story-content .section-title { margin-bottom: 24px; }
+    .story-content .section-title-en { margin-bottom: 24px; }
+    .story-body {
+      font-size: 15px;
+      color: var(--cream-dim);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .story-body-en {
+      font-family: var(--font-body-en);
+      font-size: 15px;
+    }
+    .story-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--font-display-en);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--cream-dim);
+      margin-top: 6px;
+    }
+    .stat-label-en {
+      font-family: var(--font-body-en);
+    }
+
+    /* ════════════════════════════
+       MARQUEE
+    ════════════════════════════ */
+    .marquee-section {
+      padding: 28px 0;
+      background: var(--gold);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-right: 48px;
+      font-family: var(--font-display-kr);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bg);
+      letter-spacing: 0.06em;
+    }
+    .marquee-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ════════════════════════════
+       REGION MAP SECTION
+    ════════════════════════════ */
+    .regions-section {
+      padding: 52px 40px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .region-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 14px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+      text-align: center;
+    }
+    .region-card:hover {
+      border-color: var(--border-hover);
+      background: var(--gold-muted);
+      transform: translateY(-4px);
+    }
+    .region-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    .region-name-kr {
+      font-family: var(--font-display-kr);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .region-name-en {
+      font-family: var(--font-body-en);
+      font-size: 11px;
+      color: var(--cream-dim);
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .region-count {
+      font-family: var(--font-body-en);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    /* ════════════════════════════
+       NEWSLETTER
+    ════════════════════════════ */
+    .newsletter-section {
+      padding: 64px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(139,26,26,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,150,60,0.06) 0%, transparent 60%);
+    }
+    .newsletter-content { position: relative; z-index: 1; }
+    .newsletter-section .section-title { margin: 12px auto 16px; }
+    .newsletter-section .section-title-en { margin: 12px auto 16px; }
+    .newsletter-sub {
+      font-size: 15px;
+      color: var(--cream-dim);
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .newsletter-sub-en {
+      font-family: var(--font-body-en);
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 440px;
+      margin: 0 auto;
+      gap: 0;
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: 14px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-right: none;
+      border-radius: 3px 0 0 3px;
+      color: var(--cream);
+      font-size: 14px;
+      font-family: var(--font-body-kr);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-input::placeholder { color: var(--cream-dim); }
+    .newsletter-input:focus { border-color: var(--gold); }
+    .newsletter-form .btn-primary {
+      border-radius: 0 3px 3px 0;
+      padding: 14px 28px;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      padding: 60px 48px 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer-brand .logo-kr {
+      font-family: var(--font-display-kr);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .footer-brand .logo-en {
+      font-family: var(--font-display-en);
+      font-size: 11px;
+      color: var(--cream-dim);
+      letter-spacing: 0.18em;
+      margin-bottom: 16px;
+    }
+    .footer-brand-desc {
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-brand-desc-en {
+      font-family: var(--font-body-en);
+    }
+    .footer-col-title {
+      font-family: var(--font-display-kr);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      margin-bottom: 18px;
+    }
+    .footer-col-title-en {
+      font-family: var(--font-body-en);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--cream-dim);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom {
+      padding: 20px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--cream-dim);
+      font-family: var(--font-body-en);
+    }
+    .footer-sns {
+      display: flex;
+      gap: 16px;
+    }
+    .sns-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sns-btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-muted);
+    }
+
+    /* ════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media (max-width: 1100px) {
+      .shorts-grid { grid-template-columns: repeat(2, 1fr); }
+      .regions-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 0 24px 48px; }
+      .hero-scroll { display: none; }
+      .shorts-section, .categories-section, .food-grid-section,
+      .story-section, .regions-section, .newsletter-section { padding-left: 24px; padding-right: 24px; }
+      .shorts-grid { grid-template-columns: repeat(2, 1fr); }
+      .food-grid { grid-template-columns: 1fr; }
+      .food-card.featured { grid-column: span 1; }
+      .story-section { grid-template-columns: 1fr; gap: 48px; }
+      .story-badge { right: 8px; }
+      .regions-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px 32px; }
+      .footer-bottom { padding: 16px 24px; flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .shorts-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid var(--border); border-radius: 3px; }
+      .newsletter-form .btn-primary { border-radius: 3px; }
+    }
+  </style>
+</head>
+<body class="lang-ko">
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      <span class="logo-kr">한식의 맛</span>
+      <span class="logo-en">The Art of Hansik</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#shorts"><span class="ko">숏츠</span><span class="en">Shorts</span></a></li>
+      <li><a href="#food-grid"><span class="ko">한식 탐구</span><span class="en">Explore</span></a></li>
+      <li><a href="#story"><span class="ko">한식의 이야기</span><span class="en">Our Story</span></a></li>
+      <li><a href="#regions"><span class="ko">지역별 한식</span><span class="en">By Region</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </div>
+      <button class="nav-cta" onclick="document.getElementById('food-grid').scrollIntoView({behavior:'smooth'})">
+        <span class="ko">레시피 보기</span>
+        <span class="en">Recipes</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="비빔밥.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Korea · 대한민국 · Traditional Cuisine</p>
+      <h1 class="hero-title ko">천년의 맛,<br><span class="gold">한식의</span> 품격</h1>
+      <h1 class="hero-title-en en">A <span class="gold">Thousand Years</span><br>of Korean Taste</h1>
+      <p class="hero-sub ko">사계절의 자연이 만든 다채로운 한식의 세계로 초대합니다.<br>전통의 깊이와 현대의 감각이 어우러진 대한민국의 맛.</p>
+      <p class="hero-sub hero-sub-en en">We invite you to explore the vibrant world of Korean cuisine — where centuries of tradition meet contemporary sensibility.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('shorts').scrollIntoView({behavior:'smooth'})">
+          <span class="ko">숏츠 탐색하기</span>
+          <span class="en">Watch Shorts</span>
+        </button>
+        <button class="btn-outline" onclick="document.getElementById('food-grid').scrollIntoView({behavior:'smooth'})">
+          <span class="ko">한식 둘러보기</span>
+          <span class="en">Explore Dishes</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="dancheong-border"></div>
+
+  <!-- ── SHORTS ── -->
+  <section class="shorts-section" id="shorts">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Food Shorts · 푸드 숏츠</p>
+        <h2 class="section-title ko">오늘의 한식 숏츠</h2>
+        <h2 class="section-title-en en">Today's Hansik Shorts</h2>
+      </div>
+      <a class="section-see-all">
+        <span class="ko">전체 보기</span>
+        <span class="en">See All</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="shorts-grid">
+
+      <!-- Short 1: 김치찌개 -->
+      <div class="short-card reveal">
+        <div class="short-bg food-1">🍲</div>
+        <div class="short-overlay"></div>
+        <div class="short-top">
+          <span class="short-live-badge">TRENDING</span>
+          <span class="short-views">👁 2.4M</span>
+        </div>
+        <div class="short-center">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="short-actions">
+          <div class="short-action">
+            <div class="short-action-icon">❤️</div>
+            <span class="short-action-count">184K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">💬</div>
+            <span class="short-action-count">3.2K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">↗️</div>
+            <span class="short-action-count">공유</span>
+          </div>
+        </div>
+        <div class="short-bottom">
+          <p class="short-category">찌개 · Jjigae</p>
+          <p class="short-title-kr ko">김치찌개</p>
+          <p class="short-title-en en">Kimchi Stew</p>
+          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px; font-style: italic">Kimchi Jjigae</p>
+        </div>
+        <div class="short-progress" style="width: 38%"></div>
+      </div>
+
+      <!-- Short 2: 비빔밥 -->
+      <div class="short-card reveal reveal-delay-1">
+        <div class="short-bg food-2">🥗</div>
+        <div class="short-overlay"></div>
+        <div class="short-top">
+          <span class="short-views">👁 1.8M</span>
+        </div>
+        <div class="short-center">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="short-actions">
+          <div class="short-action">
+            <div class="short-action-icon">❤️</div>
+            <span class="short-action-count">97K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">💬</div>
+            <span class="short-action-count">1.8K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">↗️</div>
+            <span class="short-action-count">공유</span>
+          </div>
+        </div>
+        <div class="short-bottom">
+          <p class="short-category">밥 · Rice</p>
+          <p class="short-title-kr ko">비빔밥</p>
+          <p class="short-title-en en">Mixed Rice Bowl</p>
+          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px; font-style: italic">Bibimbap</p>
+        </div>
+        <div class="short-progress" style="width: 62%"></div>
+      </div>
+
+      <!-- Short 3: 삼겹살 -->
+      <div class="short-card reveal reveal-delay-2">
+        <div class="short-bg food-3">🥩</div>
+        <div class="short-overlay"></div>
+        <div class="short-top">
+          <span class="short-live-badge" style="background: var(--gold); color: var(--bg);">HOT</span>
+          <span class="short-views">👁 3.1M</span>
+        </div>
+        <div class="short-center">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="short-actions">
+          <div class="short-action">
+            <div class="short-action-icon">❤️</div>
+            <span class="short-action-count">221K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">💬</div>
+            <span class="short-action-count">5.4K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">↗️</div>
+            <span class="short-action-count">공유</span>
+          </div>
+        </div>
+        <div class="short-bottom">
+          <p class="short-category">구이 · Grilled</p>
+          <p class="short-title-kr ko">삼겹살</p>
+          <p class="short-title-en en">Grilled Pork Belly</p>
+          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px; font-style: italic">Samgyeopsal</p>
+        </div>
+        <div class="short-progress" style="width: 15%"></div>
+      </div>
+
+      <!-- Short 4: 떡볶이 -->
+      <div class="short-card reveal reveal-delay-3">
+        <div class="short-bg food-4">🍡</div>
+        <div class="short-overlay"></div>
+        <div class="short-top">
+          <span class="short-views">👁 4.7M</span>
+        </div>
+        <div class="short-center">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="short-actions">
+          <div class="short-action">
+            <div class="short-action-icon">❤️</div>
+            <span class="short-action-count">389K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">💬</div>
+            <span class="short-action-count">8.1K</span>
+          </div>
+          <div class="short-action">
+            <div class="short-action-icon">↗️</div>
+            <span class="short-action-count">공유</span>
+          </div>
+        </div>
+        <div class="short-bottom">
+          <p class="short-category">분식 · Street Food</p>
+          <p class="short-title-kr ko">떡볶이</p>
+          <p class="short-title-en en">Spicy Rice Cakes</p>
+          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px; font-style: italic">Tteokbokki</p>
+        </div>
+        <div class="short-progress" style="width: 80%"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES ── -->
+  <section class="categories-section">
+    <div class="cat-scroll">
+      <div class="cat-pill active"><span class="ko">전체</span><span class="en">All</span></div>
+      <div class="cat-pill"><span class="ko">🍲 찌개 · 국</span><span class="en">🍲 Stews</span></div>
+      <div class="cat-pill"><span class="ko">🍚 밥 요리</span><span class="en">🍚 Rice Dishes</span></div>
+      <div class="cat-pill"><span class="ko">🥩 구이</span><span class="en">🥩 Grilled</span></div>
+      <div class="cat-pill"><span class="ko">🍜 면 요리</span><span class="en">🍜 Noodles</span></div>
+      <div class="cat-pill"><span class="ko">🥟 분식</span><span class="en">🥟 Street Food</span></div>
+      <div class="cat-pill"><span class="ko">🥗 나물 · 반찬</span><span class="en">🥗 Side Dishes</span></div>
+      <div class="cat-pill"><span class="ko">🍵 전통 음료</span><span class="en">🍵 Traditional Drinks</span></div>
+      <div class="cat-pill"><span class="ko">🍰 한과 · 디저트</span><span class="en">🍰 Desserts</span></div>
+    </div>
+  </section>
+
+  <div class="dancheong-border"></div>
+
+  <!-- ── FOOD GRID ── -->
+  <section class="food-grid-section" id="food-grid">
+    <div>
+      <p class="section-label">한식 탐구 · Explore Korean Cuisine</p>
+      <h2 class="section-title ko reveal">대표 한식을 만나보세요</h2>
+      <h2 class="section-title-en en reveal">Discover Iconic Korean Dishes</h2>
+    </div>
+    <div class="food-grid">
+
+      <div class="food-card featured reveal">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t1"></div>
+          <span style="position:relative;z-index:1">🍲</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">찌개 · Jjigae — National Dish</p>
+          <h3 class="food-name-kr ko">김치찌개</h3>
+          <h3 class="food-name-en">Kimchi Jjigae</h3>
+          <p class="food-desc ko">잘 익은 김치와 돼지고기, 두부가 어우러진 대한민국 대표 찌개. 구수하고 얼큰한 맛이 일품이며 가정식의 상징입니다.</p>
+          <p class="food-desc food-desc-en en">Korea's beloved kimchi stew — made with fermented kimchi, pork, and tofu. A hearty, spicy comfort food that represents the soul of home cooking.</p>
+        </div>
+      </div>
+
+      <div class="food-card reveal reveal-delay-1">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t2"></div>
+          <span style="position:relative;z-index:1">🥗</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">밥 · Rice</p>
+          <h3 class="food-name-kr ko">비빔밥</h3>
+          <h3 class="food-name-en">Bibimbap</h3>
+          <p class="food-desc ko">고슬고슬한 밥 위에 형형색색의 나물과 고추장을 얹어 비벼 먹는 한식의 보석.</p>
+          <p class="food-desc food-desc-en en">A symphony of vibrant vegetables, rice, gochujang, and egg — visually stunning and deeply satisfying.</p>
+        </div>
+      </div>
+
+      <div class="food-card reveal reveal-delay-1">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t3"></div>
+          <span style="position:relative;z-index:1">🥩</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">구이 · Grilled</p>
+          <h3 class="food-name-kr ko">삼겹살</h3>
+          <h3 class="food-name-en">Samgyeopsal</h3>
+          <p class="food-desc ko">두툼하게 썬 돼지 삼겹살을 직화에 구워 상추에 싸 먹는 문화는 한국 식문화의 정수.</p>
+          <p class="food-desc food-desc-en en">Thick slices of pork belly grilled at the table — wrap in lettuce with garlic and ssamjang for the full experience.</p>
+        </div>
+      </div>
+
+      <div class="food-card reveal reveal-delay-2">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t4"></div>
+          <span style="position:relative;z-index:1">🍜</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">면 · Noodles</p>
+          <h3 class="food-name-kr ko">냉면</h3>
+          <h3 class="food-name-en">Naengmyeon</h3>
+          <p class="food-desc ko">차가운 육수에 메밀면을 넣어 먹는 여름 별미. 평양냉면과 함흥냉면 두 가지 스타일.</p>
+          <p class="food-desc food-desc-en en">Cold buckwheat noodles in chilled broth — a summer classic with two distinct regional styles from Pyongyang and Hamheung.</p>
+        </div>
+      </div>
+
+      <div class="food-card reveal reveal-delay-2">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t5"></div>
+          <span style="position:relative;z-index:1">🥟</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">분식 · Street Food</p>
+          <h3 class="food-name-kr ko">떡볶이</h3>
+          <h3 class="food-name-en">Tteokbokki</h3>
+          <p class="food-desc ko">쫄깃한 떡에 매콤달콤한 고추장 소스를 버무린 길거리 음식의 대명사.</p>
+          <p class="food-desc food-desc-en en">Chewy rice cakes in a sweet-spicy gochujang sauce — the undisputed king of Korean street food.</p>
+        </div>
+      </div>
+
+      <div class="food-card reveal reveal-delay-3">
+        <div class="food-thumb">
+          <div class="food-thumb-bg t6"></div>
+          <span style="position:relative;z-index:1">🍗</span>
+        </div>
+        <div class="food-info">
+          <p class="food-tag">닭 · Chicken</p>
+          <h3 class="food-name-kr ko">치킨</h3>
+          <h3 class="food-name-en">Korean Fried Chicken</h3>
+          <p class="food-desc ko">겉은 바삭, 속은 촉촉한 한국식 프라이드치킨. 양념치킨과 후라이드의 황금 조합.</p>
+          <p class="food-desc food-desc-en en">Double-fried for extra crunch — glazed with a sticky-sweet-spicy sauce that's become a global phenomenon.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>김치찌개</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>비빔밥 Bibimbap</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>삼겹살</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>떡볶이 Tteokbokki</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>갈비탕</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>순두부찌개</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>냉면 Naengmyeon</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>잡채</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>불고기 Bulgogi</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>해물파전</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item"><span class="marquee-dot"></span>김치찌개</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>비빔밥 Bibimbap</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>삼겹살</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>떡볶이 Tteokbokki</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>갈비탕</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>순두부찌개</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>냉면 Naengmyeon</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>잡채</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>불고기 Bulgogi</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>해물파전</span>
+    </div>
+  </div>
+
+  <!-- ── STORY ── -->
+  <section class="story-section" id="story">
+    <div class="story-visual reveal">
+      <div class="story-frame">
+        <div class="story-frame-bg"></div>
+        <span class="story-frame-emoji">🍱</span>
+      </div>
+      <div class="story-corner tl"></div>
+      <div class="story-corner br"></div>
+      <div class="story-badge">
+        <div class="story-badge-num">5,000+</div>
+        <div class="story-badge-text ko">년의<br>음식 역사</div>
+        <div class="story-badge-text en">Years of<br>Food History</div>
+      </div>
+    </div>
+    <div class="story-content reveal reveal-delay-2">
+      <p class="section-label">한식의 이야기 · Our Story</p>
+      <h2 class="section-title ko">자연이 빚고,<br>세월이 익힌 맛</h2>
+      <h2 class="section-title-en en">Flavors Shaped by<br>Nature & Time</h2>
+      <p class="story-body ko">한식은 단순한 음식이 아닙니다. 오천 년의 역사와 사계절의 자연, 지역의 문화가 어우러진 살아있는 문화유산입니다. 발효의 지혜, 제철 재료의 활용, 그리고 음양오행의 원리가 담긴 한 상 한 상이 우리의 이야기를 담고 있습니다.</p>
+      <p class="story-body story-body-en en">Korean cuisine is more than food — it is a living cultural heritage woven from 5,000 years of history, seasonal rhythms, and regional diversity. Each meal carries the wisdom of fermentation, the philosophy of balance, and the beauty of sharing.</p>
+      <button class="btn-outline">
+        <span class="ko">더 알아보기</span>
+        <span class="en">Learn More</span>
+      </button>
+      <div class="story-stats">
+        <div>
+          <div class="stat-num">300+</div>
+          <div class="stat-label ko">대표 한식</div>
+          <div class="stat-label stat-label-en en">Iconic Dishes</div>
+        </div>
+        <div>
+          <div class="stat-num">9</div>
+          <div class="stat-label ko">지역별 특산 음식</div>
+          <div class="stat-label stat-label-en en">Regional Cuisines</div>
+        </div>
+        <div>
+          <div class="stat-num">5</div>
+          <div class="stat-label ko">유네스코 유산</div>
+          <div class="stat-label stat-label-en en">UNESCO Heritages</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REGIONS ── -->
+  <section class="regions-section" id="regions">
+    <p class="section-label">지역별 한식 · Regional Cuisine</p>
+    <div class="section-header" style="margin-top:10px; margin-bottom:0">
+      <h2 class="section-title ko reveal">지역마다 다른,<br>한식의 다양성</h2>
+      <h2 class="section-title-en en reveal">A Nation of<br>Regional Flavors</h2>
+    </div>
+    <div class="regions-grid">
+      <div class="region-card reveal">
+        <div class="region-icon">🌊</div>
+        <div class="region-name-kr ko">전라도</div>
+        <div class="region-name-kr en" style="font-family: var(--font-display-en); font-style: italic">Jeolla-do</div>
+        <div class="region-name-en ko">Jeolla Province</div>
+        <div class="region-name-en">푸짐한 남도 음식</div>
+        <div class="region-count">48 DISHES</div>
+      </div>
+      <div class="region-card reveal reveal-delay-1">
+        <div class="region-icon">🏔️</div>
+        <div class="region-name-kr ko">경상도</div>
+        <div class="region-name-kr en" style="font-family: var(--font-display-en); font-style: italic">Gyeongsang-do</div>
+        <div class="region-name-en ko">Gyeongsang Province</div>
+        <div class="region-name-en">얼큰한 동남부 맛</div>
+        <div class="region-count">42 DISHES</div>
+      </div>
+      <div class="region-card reveal reveal-delay-2">
+        <div class="region-icon">🏙️</div>
+        <div class="region-name-kr ko">서울 · 경기</div>
+        <div class="region-name-kr en" style="font-family: var(--font-display-en); font-style: italic">Seoul · Gyeonggi</div>
+        <div class="region-name-en ko">Capital Region</div>
+        <div class="region-name-en">궁중의 품격</div>
+        <div class="region-count">55 DISHES</div>
+      </div>
+      <div class="region-card reveal reveal-delay-3">
+        <div class="region-icon">🌸</div>
+        <div class="region-name-kr ko">충청도</div>
+        <div class="region-name-kr en" style="font-family: var(--font-display-en); font-style: italic">Chungcheong-do</div>
+        <div class="region-name-en ko">Chungcheong Province</div>
+        <div class="region-name-en">담백한 중부 음식</div>
+        <div class="region-count">36 DISHES</div>
+      </div>
+      <div class="region-card reveal reveal-delay-4">
+        <div class="region-icon">🌺</div>
+        <div class="region-name-kr ko">제주도</div>
+        <div class="region-name-kr en" style="font-family: var(--font-display-en); font-style: italic">Jeju Island</div>
+        <div class="region-name-en ko">Jeju Island</div>
+        <div class="region-name-en">섬의 특별한 맛</div>
+        <div class="region-count">29 DISHES</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWSLETTER ── -->
+  <section class="newsletter-section">
+    <div class="newsletter-bg"></div>
+    <div class="newsletter-content reveal">
+      <p class="section-label">뉴스레터 · Newsletter</p>
+      <h2 class="section-title ko">한식 이야기를<br>먼저 받아보세요</h2>
+      <h2 class="section-title-en en">Stay Ahead of<br>the Korean Table</h2>
+      <p class="newsletter-sub ko">새로운 한식 숏츠, 레시피, 지역 음식 이야기를<br>가장 먼저 메일로 받아보세요.</p>
+      <p class="newsletter-sub newsletter-sub-en en">Get the latest Korean food shorts, seasonal recipes, and cultural stories — delivered to your inbox first.</p>
+      <form class="newsletter-form" onsubmit="return false">
+        <input class="newsletter-input" type="email"
+          placeholder="이메일 주소를 입력하세요 · Enter your email">
+        <button class="btn-primary" type="submit">
+          <span class="ko">구독하기</span>
+          <span class="en">Subscribe</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="dancheong-border"></div>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-kr">한식의 맛</div>
+        <div class="logo-en">The Art of Hansik</div>
+        <p class="footer-brand-desc ko">대한민국의 다채롭고 깊은 한식 문화를 세계에 알리는 플랫폼입니다.</p>
+        <p class="footer-brand-desc footer-brand-desc-en en">A platform dedicated to sharing the rich and diverse world of Korean culinary culture with the world.</p>
+      </div>
+      <div>
+        <p class="footer-col-title ko">탐색</p>
+        <p class="footer-col-title footer-col-title-en en">Explore</p>
+        <ul class="footer-links">
+          <li><a href="#"><span class="ko">숏츠</span><span class="en">Shorts</span></a></li>
+          <li><a href="#"><span class="ko">대표 한식</span><span class="en">Iconic Dishes</span></a></li>
+          <li><a href="#"><span class="ko">지역별 음식</span><span class="en">By Region</span></a></li>
+          <li><a href="#"><span class="ko">레시피</span><span class="en">Recipes</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title ko">한식 문화</p>
+        <p class="footer-col-title footer-col-title-en en">Culture</p>
+        <ul class="footer-links">
+          <li><a href="#"><span class="ko">한식의 역사</span><span class="en">Food History</span></a></li>
+          <li><a href="#"><span class="ko">발효 음식</span><span class="en">Fermentation</span></a></li>
+          <li><a href="#"><span class="ko">궁중 음식</span><span class="en">Royal Cuisine</span></a></li>
+          <li><a href="#"><span class="ko">전통 식재료</span><span class="en">Ingredients</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title ko">소통</p>
+        <p class="footer-col-title footer-col-title-en en">Connect</p>
+        <ul class="footer-links">
+          <li><a href="#"><span class="ko">소개</span><span class="en">About</span></a></li>
+          <li><a href="#"><span class="ko">뉴스레터</span><span class="en">Newsletter</span></a></li>
+          <li><a href="#"><span class="ko">제휴 문의</span><span class="en">Partnerships</span></a></li>
+          <li><a href="#"><span class="ko">제보하기</span><span class="en">Submit a Dish</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 한식의 맛 · The Art of Hansik. All rights reserved.</p>
+      <div class="footer-sns">
+        <div class="sns-btn" title="YouTube">▶</div>
+        <div class="sns-btn" title="Instagram">📷</div>
+        <div class="sns-btn" title="TikTok">♪</div>
+        <div class="sns-btn" title="Twitter/X">✕</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
