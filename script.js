@@ -44,9 +44,9 @@ setInterval(animateProgress, 100);
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.navbar');
   if (window.scrollY > 60) {
-    nav.style.background = 'rgba(6, 6, 10, 0.97)';
+    nav.style.background = 'rgba(245, 245, 248, 0.98)';
   } else {
-    nav.style.background = 'rgba(9, 9, 13, 0.90)';
+    nav.style.background = 'rgba(245, 245, 248, 0.92)';
   }
 }, { passive: true });
 

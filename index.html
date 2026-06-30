@@ -11,18 +11,18 @@
   <style>
     /* ── Design Tokens ── */
     :root {
-      --bg:           #09090D;
-      --bg-surface:   #111118;
-      --bg-card:      rgba(255,255,255,0.042);
+      --bg:           #F5F5F8;
+      --bg-surface:   #EBEBF0;
+      --bg-card:      #FFFFFF;
       --gold:         #FF5A1E;
       --gold-light:   #FF7D48;
-      --gold-muted:   rgba(255,90,30,0.10);
+      --gold-muted:   rgba(255,90,30,0.08);
       --red:          #E81A3C;
       --red-bright:   #FF3358;
-      --cream:        #F4F4FA;
-      --cream-dim:    #7878A0;
-      --border:       rgba(255,255,255,0.07);
-      --border-hover: rgba(255,90,30,0.50);
+      --cream:        #111118;
+      --cream-dim:    #66668A;
+      --border:       rgba(17,17,24,0.08);
+      --border-hover: rgba(255,90,30,0.40);
 
       --font-display-kr: 'Noto Sans KR', sans-serif;
       --font-display-en: 'Bebas Neue', 'Inter', sans-serif;
@@ -37,7 +37,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: #09090D;
+      background: var(--bg);
       color: var(--cream);
       font-family: var(--font-body-kr);
       font-size: 16px;
@@ -83,11 +83,11 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 72px;
-      background: rgba(9, 9, 13, 0.90);
+      background: rgba(245, 245, 248, 0.92);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 1px 0 rgba(255,90,30,0.15), 0 4px 24px rgba(0,0,0,0.6);
+      border-bottom: 1px solid rgba(17,17,24,0.08);
+      box-shadow: 0 1px 0 rgba(255,90,30,0.12), 0 4px 20px rgba(0,0,0,0.06);
       transition: background 0.3s var(--ease-out);
     }
     .nav-logo {
@@ -426,7 +426,7 @@
     .shorts-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 10px;
     }
     .short-card {
       position: relative;
@@ -434,15 +434,16 @@
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
-      background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #1A1A22;
+      border: 1px solid rgba(17,17,24,0.10);
       transition: border-color 0.3s, box-shadow 0.3s;
       transform-style: preserve-3d;
       will-change: transform;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
     }
     .short-card:hover {
       border-color: rgba(255,90,30,0.40);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 20px rgba(255,90,30,0.12);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22), 0 0 18px rgba(255,90,30,0.10);
     }
     .short-bg {
       position: absolute;
@@ -635,22 +636,23 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto;
-      gap: 16px;
-      margin-top: 32px;
+      gap: 10px;
+      margin-top: 24px;
     }
     .food-card {
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #FFFFFF;
+      border: 1px solid rgba(17,17,24,0.07);
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
       transition: border-color 0.3s, box-shadow 0.3s;
       transform-style: preserve-3d;
       will-change: transform;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
     .food-card:hover {
-      border-color: rgba(255,90,30,0.40);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 24px rgba(255,90,30,0.10);
+      border-color: rgba(255,90,30,0.35);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.14), 0 0 20px rgba(255,90,30,0.08);
     }
     .food-card.featured {
       grid-column: span 2;
@@ -660,13 +662,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 64px;
+      font-size: 52px;
       position: relative;
       overflow: hidden;
     }
     .food-card.featured .food-thumb {
       aspect-ratio: 16/9;
-      font-size: 96px;
+      font-size: 76px;
     }
     .food-thumb-bg {
       position: absolute;
@@ -675,7 +677,7 @@
     }
     .food-card:hover .food-thumb-bg { transform: scale(1.06); }
     .food-info {
-      padding: 20px;
+      padding: 14px 16px;
     }
     .food-tag {
       font-family: var(--font-body-en);
@@ -688,21 +690,23 @@
     }
     .food-name-kr {
       font-family: var(--font-display-kr);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 3px;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 2px;
     }
     .food-name-en {
-      font-family: var(--font-display-en);
-      font-size: 14px;
-      font-style: italic;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--cream-dim);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .food-desc {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--cream-dim);
-      line-height: 1.65;
+      line-height: 1.6;
     }
     .food-desc-en {
       font-family: var(--font-body-en);
@@ -744,7 +748,7 @@
     .story-frame-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 40% 35%, #2A1008 0%, #080406 100%);
+      background: radial-gradient(ellipse at 40% 35%, #FF6A30 0%, #AA1828 100%);
     }
     .story-frame-emoji {
       position: relative;
@@ -863,24 +867,25 @@
     .regions-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-top: 28px;
+      gap: 8px;
+      margin-top: 24px;
     }
     .region-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #FFFFFF;
+      border: 1px solid rgba(17,17,24,0.07);
       border-radius: 4px;
-      padding: 18px 14px;
+      padding: 14px 10px;
       cursor: pointer;
       transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
       text-align: center;
       transform-style: preserve-3d;
       will-change: transform;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .region-card:hover {
-      border-color: rgba(255,90,30,0.40);
-      background: rgba(255,90,30,0.06);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.6), 0 0 16px rgba(255,90,30,0.10);
+      border-color: rgba(255,90,30,0.35);
+      background: #FFFFFF;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12), 0 0 14px rgba(255,90,30,0.07);
     }
     .region-icon {
       font-size: 36px;
@@ -945,8 +950,8 @@
     .newsletter-input {
       flex: 1;
       padding: 14px 20px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: #FFFFFF;
+      border: 1px solid rgba(17,17,24,0.12);
       border-right: none;
       border-radius: 3px 0 0 3px;
       color: var(--cream);
@@ -1172,19 +1177,25 @@
 
     /* Marquee urban strip */
     .marquee-section {
-      background: linear-gradient(90deg, #1A0804 0%, #110208 50%, #1A0804 100%) !important;
-      border-top: 1px solid rgba(255,90,30,0.15);
-      border-bottom: 1px solid rgba(255,90,30,0.15);
+      background: linear-gradient(90deg, var(--gold) 0%, var(--red) 50%, var(--gold) 100%) !important;
+      background-size: 200% 100% !important;
+      animation: marqueeGrad 6s ease infinite !important;
+      border-top: none;
+      border-bottom: none;
+    }
+    @keyframes marqueeGrad {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     .marquee-item {
-      color: var(--cream) !important;
+      color: #FFFFFF !important;
       font-family: 'Inter', sans-serif !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.14em !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.16em !important;
       text-transform: uppercase !important;
       font-size: 11px !important;
     }
-    .marquee-dot { background: var(--gold) !important; }
+    .marquee-dot { background: rgba(255,255,255,0.6) !important; }
 
     /* Story badge urban */
     .story-badge { border-radius: 4px !important; }
