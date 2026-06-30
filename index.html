@@ -459,6 +459,15 @@
       transition: transform 0.5s var(--ease-out);
     }
     .short-card:hover .short-bg { transform: scale(1.08); }
+    .card-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      border-radius: inherit;
+    }
     .short-overlay {
       position: absolute;
       inset: 0;
@@ -1311,7 +1320,9 @@
 
       <!-- Short 1: 김치찌개 -->
       <div class="short-card reveal">
-        <div class="short-bg food-1">🍲</div>
+        <video class="card-video" autoplay muted loop playsinline>
+          <source src="김치찌개.mp4" type="video/mp4">
+        </video>
         <div class="short-overlay"></div>
         <div class="short-top">
           <span class="short-live-badge">TRENDING</span>
@@ -1451,13 +1462,15 @@
         <div class="short-progress" style="width: 80%"></div>
       </div>
 
-      <!-- Short 5: 불고기 -->
+      <!-- Short 5: 냉면 -->
       <div class="short-card reveal reveal-delay-4">
-        <div class="short-bg food-5">🍖</div>
+        <video class="card-video" autoplay muted loop playsinline>
+          <source src="냉면.mp4" type="video/mp4">
+        </video>
         <div class="short-overlay"></div>
         <div class="short-top">
           <span class="short-live-badge">NEW</span>
-          <span class="short-views">👁 1.2M</span>
+          <span class="short-views">👁 1.6M</span>
         </div>
         <div class="short-center">
           <div class="play-btn">
@@ -1467,11 +1480,11 @@
         <div class="short-actions">
           <div class="short-action">
             <div class="short-action-icon">❤️</div>
-            <span class="short-action-count">112K</span>
+            <span class="short-action-count">143K</span>
           </div>
           <div class="short-action">
             <div class="short-action-icon">💬</div>
-            <span class="short-action-count">2.6K</span>
+            <span class="short-action-count">3.4K</span>
           </div>
           <div class="short-action">
             <div class="short-action-icon">↗️</div>
@@ -1479,12 +1492,12 @@
           </div>
         </div>
         <div class="short-bottom">
-          <p class="short-category">구이 · Grilled</p>
-          <p class="short-title-kr ko">불고기</p>
-          <p class="short-title-en en">Korean BBQ Beef</p>
-          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px">Bulgogi</p>
+          <p class="short-category">면 · Noodle</p>
+          <p class="short-title-kr ko">냉면</p>
+          <p class="short-title-en en">Cold Noodles</p>
+          <p class="short-title-en ko" style="color: var(--cream-dim); font-size:11px; font-style: italic">Naengmyeon</p>
         </div>
-        <div class="short-progress" style="width: 25%"></div>
+        <div class="short-progress" style="width: 52%"></div>
       </div>
 
     </div>
